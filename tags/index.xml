@@ -1,12 +1,32 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on Terminal</title>
+    <title>Tags on x5113nc3x</title>
     <link>https://navichok26.github.io/tags/</link>
-    <description>Recent content in Tags on Terminal</description>
+    <description>Recent content in Tags on x5113nc3x</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 23 Nov 2022 10:55:32 +0700</lastBuildDate><atom:link href="https://navichok26.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 13 Dec 2022 23:01:32 +0700</lastBuildDate><atom:link href="https://navichok26.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ctf</title>
+      <link>https://navichok26.github.io/tags/ctf/</link>
+      <pubDate>Tue, 13 Dec 2022 23:01:32 +0700</pubDate>
+      
+      <guid>https://navichok26.github.io/tags/ctf/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
+    <item>
+      <title>writeup</title>
+      <link>https://navichok26.github.io/tags/writeup/</link>
+      <pubDate>Tue, 13 Dec 2022 23:01:32 +0700</pubDate>
+      
+      <guid>https://navichok26.github.io/tags/writeup/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
     <item>
       <title>осебе</title>
       <link>https://navichok26.github.io/tags/%D0%BE%D1%81%D0%B5%D0%B1%D0%B5/</link>
