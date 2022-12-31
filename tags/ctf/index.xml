@@ -11,11 +11,9 @@
       <title>niteCTF полу-writeup</title>
       <link>https://navichok26.github.io/posts/nitectf/</link>
       <pubDate>Mon, 26 Dec 2022 20:15:19 +0700</pubDate>
-      
+      <author>[x5113nc3x Jl4stik]</author>
       <guid>https://navichok26.github.io/posts/nitectf/</guid>
-      <description>VM Дан код виртуалки на расте и какой-то выхлоп из неё. Ищем main, листаем и видим что начинается какой-то подозрительный фрагмент с if’ами. Понимаем что это что-то связанное с выхолпом, берётся указатель pc и по указателю берётся hex число
-(пройдем в switch только если число меньше всех трёх проверок или большё всех трёх проверок)
-Ну и короче в файле он берёт число и проверяет через всё это. Если проходит если не попадаем в первый if то идём else там чето делается.</description>
+      <description>Полуразбор таска на reverse vm-ки</description>
       <content>&lt;h1 id=&#34;vm&#34;&gt;VM&lt;/h1&gt;
 &lt;p&gt;Дан код виртуалки на расте и какой-то выхлоп из неё.
 Ищем main, листаем и видим что начинается какой-то подозрительный фрагмент с if’ами.
@@ -155,10 +153,9 @@
       <title>HTB 2022 Supernatural Hacks writeups</title>
       <link>https://navichok26.github.io/posts/htb_supernatural_hacks/</link>
       <pubDate>Tue, 13 Dec 2022 23:01:32 +0700</pubDate>
-      
+      <author>x5113nc3x</author>
       <guid>https://navichok26.github.io/posts/htb_supernatural_hacks/</guid>
-      <description>Reverse Potion Master (easy) Дан код на haskell-е:
-import Data.Char (ord) import Data.Bits (xor) -- Complete the incantation... flag = &amp;#34;HTB{XXX}&amp;#34; extractFlag :: String -&amp;gt; String extractFlag (s:rest) | s == &amp;#39;H&amp;#39; || s == &amp;#39;T&amp;#39; || s == &amp;#39;B&amp;#39; = extractFlag rest | s == &amp;#39;{&amp;#39; &amp;amp;&amp;amp; last rest == &amp;#39;}&amp;#39; = init rest | otherwise = error (&amp;#34;Invalid format&amp;#34;) chunks :: Int -&amp;gt; [a] -&amp;gt; [[a]] chunks n l | n == 0 = [] | n == 1 = [[x] | x &amp;lt;- l] | length l &amp;lt;= n = [l] | otherwise = [take n l] ++ (chunks n (drop n l)) takeLast :: Int -&amp;gt; [a] -&amp;gt; [a] takeLast n = reverse .</description>
+      <description>Разбор тасков с HTB University CTF 2022: Supernatural Hacks</description>
       <content>&lt;h1 id=&#34;reverse&#34;&gt;Reverse&lt;/h1&gt;
 &lt;h2 id=&#34;potion-master-easy&#34;&gt;Potion Master (easy)&lt;/h2&gt;
 &lt;p&gt;Дан код на haskell-е:&lt;/p&gt;
