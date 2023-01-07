@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Сжатие алгоритмом Хаффмана :: x5113nc3x</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Реализация алгоритма на python" />
+<meta name="keywords" content=", " />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://navichok26.github.io/posts/huffman/" />
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/style.css">
+
+
+
+
+
+
+
+  <link rel="shortcut icon" href="https://navichok26.github.io/img/theme-colors/pink.png">
+  <link rel="apple-touch-icon" href="https://navichok26.github.io/img/theme-colors/pink.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Сжатие алгоритмом Хаффмана">
+<meta property="og:description" content="Реализация алгоритма на python" />
+<meta property="og:url" content="https://navichok26.github.io/posts/huffman/" />
+<meta property="og:site_name" content="x5113nc3x" />
+
+  
+  
+  <meta property="og:image" content="https://navichok26.github.io">
+
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+
+
+  <meta property="article:published_time" content="2023-01-07 21:20:45 &#43;0700 &#43;07" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="pink">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    x5113nc3x
+  </div>
+</a>
+
+    </div>
+    
+    
+  </div>
+  
+</header>
+
+
+  <div class="content">
+    
+<article class="post">
+  <h1 class="post-title">
+    <a href="https://navichok26.github.io/posts/huffman/">Сжатие алгоритмом Хаффмана</a>
+  </h1>
+  <div class="post-meta">
+    
+      <time class="post-date">
+        2023-01-07 ::
+        
+      </time>
+    
+    
+      <span class="post-author">x5113nc3x</span>
+    
+    
+      <span class="post-reading-time">:: 2 min read (250 words)</span>
+    
+  </div>
+
+  
+    <span class="post-tags">
+      
+      #<a href="https://navichok26.github.io/tags/prog/">prog</a>&nbsp;
+      
+    </span>
+  
+  
+
+
+  
+
+  <div class="post-content"><div>
+        <p>Про работу алгоритма можно почитать <a href="https://habr.com/ru/post/144200/">тут</a></p>
+<h1 id="реализация">Реализация<a href="#реализация" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<p>Исходный код на <a href="https://github.com/navichok26/huffman">github</a></p>
+<p>Разберем некоторые части кода</p>
+<h2 id="генерация-кодов">Генерация кодов<a href="#генерация-кодов" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>После открытия файла в режиме <code>rb</code> и считывания содержимого идет следующий блок</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>dict_chars <span style="color:#f92672">=</span> counting_charaters(input)
+</span></span><span style="display:flex;"><span>sort_list_leafs <span style="color:#f92672">=</span> generate_sort_leafs(dict_chars)
+</span></span><span style="display:flex;"><span>root_node <span style="color:#f92672">=</span> generate_tree(sort_list_leafs)
+</span></span><span style="display:flex;"><span>huffman_codes <span style="color:#f92672">=</span> generate_huffman(root_node) 
+</span></span></code></pre></div><ul>
+<li><code>counting_charaters</code> - просто подсчитывает какие байты сколько раз встречаются и возвращает результат в виде словаря</li>
+<li><code>generate_sort_leafs</code> - генерируем отсортированный по <code>priorety</code> массив объектов Leaf
+<ul>
+<li>Помимо Leaf используется класс Node, который объеденяет 2 класса Leaf\Node, складывая их приоритеты, нужен для генерации дерева</li>
+<li>Т.к. сортировать массив будем встроенной функцией, то переопределим <code>__lt__</code> в классах Leaf и Node</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> __lt__(self, other):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>priorety <span style="color:#f92672">&lt;=</span> other<span style="color:#f92672">.</span>priorety
+</span></span></code></pre></div></li>
+<li><code>generate_tree</code> - генерируем дерево используя массив Leafs</li>
+<li><code>generate_huffman</code> - по дереву получаем словарь кодов хаффмана</li>
+</ul>
+<p>В целом ничего нового, простой перенос алгоритма на python</p>
+<h2 id="сжатие-и-запись-в-файл">Сжатие и запись в файл<a href="#сжатие-и-запись-в-файл" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>Содержимое файла сжимается просто сопоставляя каждому байту его код хаффмана из словаря <code>huffman_codes</code>.
+Тут возникает первая проблема, количество бит может быть не кратным 8-ми.
+Для решения этой проблемы используется паддинг, мы дописываем в конец биты для кратности 8-ми.
+А вначало добавляем лишний байт, который будет содержать кол-во битов которые мы дописали</p>
+<p><code>011</code> -&gt; <code>00000111_011_00000</code></p>
+<p>Теперь решим проблему декодирования, ведь чтоб разжать сжатый текст нам нужно знать коды или хотябы словарь <code>dict_chars</code>.
+Для этого сделаем простой формат для наших файлов.</p>
+<ul>
+<li>Первые 3 байта <code>HUF</code> - сигнатура (в программе не используется, сделано с расчетом на будущее)</li>
+<li>1 байт кол-во байтов в <code>dict_chars</code></li>
+<li>1 байт из изначального текста, а затем 4 байта сколько раз байт встречался в изначальном тексте</li>
+<li>Сжатое сообщение</li>
+</ul>
+
+      </div></div>
+
+  
+
+  
+    
+
+  
+</article>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2023 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+
+
+
+
+
+<script type="text/javascript" src="/bundle.min.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>

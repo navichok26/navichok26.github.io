@@ -6,7 +6,55 @@
     <description>Recent content on x5113nc3x</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 26 Dec 2022 20:15:19 +0700</lastBuildDate><atom:link href="https://navichok26.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 07 Jan 2023 21:20:45 +0700</lastBuildDate><atom:link href="https://navichok26.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Сжатие алгоритмом Хаффмана</title>
+      <link>https://navichok26.github.io/posts/huffman/</link>
+      <pubDate>Sat, 07 Jan 2023 21:20:45 +0700</pubDate>
+      <author>x5113nc3x</author>
+      <guid>https://navichok26.github.io/posts/huffman/</guid>
+      <description>Реализация алгоритма на python</description>
+      <content>&lt;p&gt;Про работу алгоритма можно почитать &lt;a href=&#34;https://habr.com/ru/post/144200/&#34;&gt;тут&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&#34;реализация&#34;&gt;Реализация&lt;/h1&gt;
+&lt;p&gt;Исходный код на &lt;a href=&#34;https://github.com/navichok26/huffman&#34;&gt;github&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Разберем некоторые части кода&lt;/p&gt;
+&lt;h2 id=&#34;генерация-кодов&#34;&gt;Генерация кодов&lt;/h2&gt;
+&lt;p&gt;После открытия файла в режиме &lt;code&gt;rb&lt;/code&gt; и считывания содержимого идет следующий блок&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;dict_chars &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; counting_charaters(input)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sort_list_leafs &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; generate_sort_leafs(dict_chars)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;root_node &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; generate_tree(sort_list_leafs)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;huffman_codes &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; generate_huffman(root_node) 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;counting_charaters&lt;/code&gt; - просто подсчитывает какие байты сколько раз встречаются и возвращает результат в виде словаря&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;generate_sort_leafs&lt;/code&gt; - генерируем отсортированный по &lt;code&gt;priorety&lt;/code&gt; массив объектов Leaf
+&lt;ul&gt;
+&lt;li&gt;Помимо Leaf используется класс Node, который объеденяет 2 класса Leaf\Node, складывая их приоритеты, нужен для генерации дерева&lt;/li&gt;
+&lt;li&gt;Т.к. сортировать массив будем встроенной функцией, то переопределим &lt;code&gt;__lt__&lt;/code&gt; в классах Leaf и Node&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; __lt__(self, other):
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; self&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;priorety &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; other&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;priorety
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;generate_tree&lt;/code&gt; - генерируем дерево используя массив Leafs&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;generate_huffman&lt;/code&gt; - по дереву получаем словарь кодов хаффмана&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;В целом ничего нового, простой перенос алгоритма на python&lt;/p&gt;
+&lt;h2 id=&#34;сжатие-и-запись-в-файл&#34;&gt;Сжатие и запись в файл&lt;/h2&gt;
+&lt;p&gt;Содержимое файла сжимается просто сопоставляя каждому байту его код хаффмана из словаря &lt;code&gt;huffman_codes&lt;/code&gt;.
+Тут возникает первая проблема, количество бит может быть не кратным 8-ми.
+Для решения этой проблемы используется паддинг, мы дописываем в конец биты для кратности 8-ми.
+А вначало добавляем лишний байт, который будет содержать кол-во битов которые мы дописали&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;011&lt;/code&gt; -&amp;gt; &lt;code&gt;00000111_011_00000&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Теперь решим проблему декодирования, ведь чтоб разжать сжатый текст нам нужно знать коды или хотябы словарь &lt;code&gt;dict_chars&lt;/code&gt;.
+Для этого сделаем простой формат для наших файлов.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Первые 3 байта &lt;code&gt;HUF&lt;/code&gt; - сигнатура (в программе не используется, сделано с расчетом на будущее)&lt;/li&gt;
+&lt;li&gt;1 байт кол-во байтов в &lt;code&gt;dict_chars&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;1 байт из изначального текста, а затем 4 байта сколько раз байт встречался в изначальном тексте&lt;/li&gt;
+&lt;li&gt;Сжатое сообщение&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    </item>
+    
     <item>
       <title>niteCTF полу-writeup</title>
       <link>https://navichok26.github.io/posts/nitectf/</link>
